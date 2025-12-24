@@ -12,8 +12,21 @@
     "scroll-picker",
     "time-picker",
     "date-picker",
-    "accessible"
+    "accessible",
+    "rtl",
+    "persian",
+    "farsi",
+    "typescript",
+    "mobile",
+    "touch",
+    "scroll-snap",
+    "a11y",
+    "component"
   ],
+  "homepage": "https://github.com/Poursha98/react-ios-time-picker#readme",
+  "bugs": {
+    "url": "https://github.com/Poursha98/react-ios-time-picker/issues"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Poursha98/react-ios-time-picker.git"
