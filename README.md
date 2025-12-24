@@ -6,6 +6,10 @@ A beautiful, accessible iOS-style time picker for React. Features smooth scroll-
 ![bundle size](https://img.shields.io/bundlephobia/minzip/react-ios-time-picker)
 ![license](https://img.shields.io/npm/l/react-ios-time-picker)
 
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Poursha98/react-ios-time-picker/main/assets/time-picker-en.gif" alt="Demo" width="300" />
+</p>
+
 ## Features
 
 - 🎡 **iOS-style scroll physics** - Native scroll-snap behavior
