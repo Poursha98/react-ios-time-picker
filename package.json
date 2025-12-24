@@ -1,0 +1,53 @@
+{
+  "name": "react-ios-time-picker",
+  "version": "0.1.0",
+  "description": "iOS-style wheel picker component for React with smooth scroll-snap, accessibility, and full customization.",
+  "author": "Poursha98",
+  "license": "MIT",
+  "keywords": [
+    "react",
+    "wheel-picker",
+    "ios",
+    "picker",
+    "scroll-picker",
+    "time-picker",
+    "date-picker",
+    "accessible"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Poursha98/react-ios-time-picker.git"
+  },
+  "type": "module",
+  "main": "./dist/index.cjs.js",
+  "module": "./dist/index.es.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.cjs.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "typescript": "^5.0.0",
+    "vite": "^5.0.0",
+    "vite-plugin-dts": "^3.0.0"
+  },
+  "scripts": {
+    "build": "vite build",
+    "prepublishOnly": "npm run build"
+  }
+}
