@@ -25,7 +25,7 @@ A beautiful, accessible iOS-style time picker for React. Features smooth scroll-
 ## Installation
 
 ```bash
-npm install react-ios-time-picker
+npm i @poursha98/react-ios-time-picker
 ```
 
 ## Quick Start
