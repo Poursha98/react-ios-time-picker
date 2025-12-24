@@ -7,7 +7,9 @@ A beautiful, accessible iOS-style time picker for React. Features smooth scroll-
 ![license](https://img.shields.io/npm/l/react-ios-time-picker)
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Poursha98/react-ios-time-picker/main/assets/time-picker-en.gif" alt="Demo" width="300" />
+  <img src="https://raw.githubusercontent.com/Poursha98/react-ios-time-picker/main/assets/time-picker-en.gif" alt="English Demo" width="280" />
+  &nbsp;&nbsp;
+  <img src="https://raw.githubusercontent.com/Poursha98/react-ios-time-picker/main/assets/time-picker-fa.gif" alt="Persian/RTL Demo" width="280" />
 </p>
 
 ## Features
