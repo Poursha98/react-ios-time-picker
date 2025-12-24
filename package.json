@@ -1,6 +1,6 @@
 {
   "name": "@poursha98/react-ios-time-picker",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "iOS-style wheel picker component for React with smooth scroll-snap, accessibility, and full customization.",
   "author": "Poursha98",
   "license": "MIT",
