@@ -126,6 +126,29 @@ The `numerals` prop controls both the number display format **and** the UI text 
 
 ## Styling
 
+### Tailwind CSS
+
+Works out of the box with Tailwind - just pass your classes via `classNames`:
+
+```tsx
+<TimePicker
+  value={time}
+  onChange={setTime}
+  classNames={{
+    root: "bg-slate-900 rounded-2xl p-6 shadow-xl",
+    title: "text-white font-bold text-xl",
+    wheelLabel: "text-slate-400 text-sm",
+    separator: "text-blue-400",
+    confirmButton:
+      "bg-gradient-to-r from-blue-500 to-purple-500 hover:opacity-90 transition-opacity rounded-xl",
+    wheel: {
+      root: "bg-slate-800 rounded-lg",
+      indicator: "bg-slate-700/50 rounded-md",
+    },
+  }}
+/>
+```
+
 ### CSS Variables
 
 Customize colors using CSS variables:
