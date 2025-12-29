@@ -69,8 +69,6 @@ function App() {
 }
 ```
 
-````
-
 ### Infinite Scrolling (Loop)
 
 Enable infinite looping for wheels (except AM/PM):
@@ -94,7 +92,11 @@ Easily override default styles with your own Tailwind classes:
 Or use compound components for granular control:
 
 ```tsx
-<TimePickerRoot value={time} onChange={setTime} className="bg-linear-to-br from-purple-500 to-pink-500 p-8">
+<TimePickerRoot
+  value={time}
+  onChange={setTime}
+  className="bg-linear-to-br from-purple-500 to-pink-500 p-8"
+>
   <TimePickerTitle className="text-white text-2xl">Pick a Time</TimePickerTitle>
   <TimePickerWheels>
     <TimePickerWheel type="hour" className="bg-white/20 backdrop-blur" />
@@ -518,4 +520,7 @@ function MinimalPicker() {
 ## 📄 License
 
 MIT © Poursha98
-````
+
+```
+
+```
