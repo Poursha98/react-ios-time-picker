@@ -404,7 +404,7 @@ export const Wheel = forwardRef<HTMLDivElement, WheelProps>(
       >
         <div
           className={cn(
-            "bg-gradient-to-b from-white via-white/80 to-transparent",
+            "bg-linear-to-b from-white via-white/80 to-transparent",
             classNames.overlayTop
           )}
           style={{
@@ -423,7 +423,7 @@ export const Wheel = forwardRef<HTMLDivElement, WheelProps>(
 
         <div
           className={cn(
-            "bg-gradient-to-t from-white via-white/80 to-transparent",
+            "bg-linear-to-t from-white via-white/80 to-transparent",
             classNames.overlayBottom
           )}
           style={{
@@ -492,9 +492,7 @@ export const Wheel = forwardRef<HTMLDivElement, WheelProps>(
                 onClick={() => handleItemClick(index)}
                 className={cn(
                   "text-xl transition-colors duration-150",
-                  isSelected
-                    ? "text-blue-500 font-bold"
-                    : "text-gray-400 font-medium",
+                  isSelected ? "font-bold" : "font-medium",
                   classNames.item,
                   isSelected && classNames.selectedItem
                 )}

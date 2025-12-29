@@ -17,7 +17,7 @@ A beautiful, accessible iOS-style time picker for React with **Tailwind CSS** an
 - 🌐 **RTL & Persian numerals** - Built-in support for Persian/Arabic
 - 🎨 **Tailwind-first** - Styled with Tailwind CSS, no CSS import needed
 - 🎨 **Fully customizable** - Override styles easily via `className` prop
-- 📦 **Lightweight** - ~12KB gzipped with dependencies
+- 📦 **Lightweight** - ~5KB gzipped
 - 🔧 **TypeScript** - Complete type definitions included
 
 > **Note**: Requires Tailwind CSS v3.0+ in your project
@@ -107,6 +107,29 @@ Or use compound components for granular control:
     Confirm
   </TimePickerButton>
 </TimePickerRoot>
+```
+
+### Customizing Wheel Item Colors
+
+Customize the colors of wheel items using the `classNames` prop:
+
+```tsx
+<TimePickerWheel
+  type="hour"
+  classNames={{
+    item: "text-gray-400", // Unselected items
+    selectedItem: "text-primary", // Selected item
+  }}
+/>
+```
+
+You can also use Tailwind's arbitrary variant syntax to target data attributes:
+
+```tsx
+<TimePickerWheel
+  type="minute"
+  className="[&_[data-wheel-item]]:text-gray-400 [&_[data-wheel-item][data-selected]]:text-blue-500"
+/>
 ```
 
 ### Compound Components (Full Control)
@@ -375,13 +398,13 @@ Style using data attributes for more specificity:
   color: white;
 }
 
-/* Wheel items */
+/* Wheel items - no default colors, customize as needed */
 [data-wheel-item] {
-  color: #94a3b8;
+  color: #94a3b8; /* Unselected items */
 }
 
 [data-wheel-item][data-selected] {
-  color: #3b82f6;
+  color: #3b82f6; /* Selected item */
   font-weight: bold;
 }
 
@@ -390,6 +413,8 @@ Style using data attributes for more specificity:
   border-color: #3b82f6;
 }
 ```
+
+**Note**: As of version 2.0, wheel items no longer have hardcoded text colors. You must explicitly set colors using the `classNames` prop, data attribute selectors, or the `className` prop on `TimePickerWheel`.
 
 ### Tailwind CSS Example
 
