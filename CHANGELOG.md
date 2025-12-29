@@ -11,6 +11,43 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.3] - 2025-12-29
+
+### 🎉 Performance & Customization
+
+#### Changed
+
+- **Bundle size reduced by 69%** 📦
+  - Removed `tailwind-merge` dependency
+  - **Before**: 83.41 kB (16.80 kB gzipped)
+  - **After**: 24.26 kB (5.16 kB gzipped)
+  - Savings: ~59 kB uncompressed, ~11.6 kB gzipped
+- **Removed hardcoded text colors** from `Wheel` component items
+  - Allows full customization via `classNames` prop
+  - Users can now set custom colors for selected/unselected items
+
+#### Added
+
+- Documentation for customizing wheel item colors via `classNames` prop
+- Example of using data attribute selectors for styling
+
+#### Migration Notes
+
+- **Class merging behavior**: Now uses `clsx` only (standard CSS precedence)
+  - Last class in the list wins, which is standard CSS behavior
+  - If you were relying on automatic Tailwind class deduplication, ensure you're not passing conflicting classes
+- **Wheel item colors**: No default colors applied to wheel items anymore
+  - If you want colored items, add them via the `classNames` prop:
+    ```tsx
+    <TimePickerWheel
+      type="hour"
+      classNames={{
+        item: "text-gray-400",
+        selectedItem: "text-primary",
+      }}
+    />
+    ```
+
 ## [2.0.0] - 2025-12-29
 
 ### 🚀 BREAKING CHANGES
