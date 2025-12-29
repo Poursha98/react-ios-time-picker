@@ -26,7 +26,10 @@ export const TimePickerTitle = forwardRef<
       ref={ref}
       data-time-picker-title=""
       style={style}
-      className={cn("time-picker-title", className)}
+      className={cn(
+        "text-xl font-semibold text-gray-900 text-center mb-4",
+        className
+      )}
       {...props}
     >
       {children ?? locale.title}

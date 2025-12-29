@@ -36,7 +36,10 @@ export const TimePickerWheels = forwardRef<
       <Comp
         ref={ref}
         data-time-picker-wheels=""
-        className={cn("time-picker-wheels", className)}
+        className={cn(
+          "flex items-end justify-center gap-1 relative",
+          className
+        )}
         // Always LTR for wheels to keep hour:minute order consistent
         style={{
           direction: "ltr",
@@ -48,7 +51,7 @@ export const TimePickerWheels = forwardRef<
         {/* Unified iOS-style selection indicator */}
         {!hideIndicator && (
           <div
-            className="time-picker-indicator"
+            className="border-t border-b border-gray-300/30 bg-transparent"
             data-time-picker-indicator=""
             style={{
               position: "absolute",

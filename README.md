@@ -1,6 +1,6 @@
 # react-ios-time-picker
 
-A beautiful, accessible iOS-style time picker for React with **shadcn-style compound components**. Features smooth scroll-snap physics, 12-hour AM/PM support, touch/mouse drag, RTL support, and full TypeScript types.
+A beautiful, accessible iOS-style time picker for React with **Tailwind CSS** and **shadcn-style compound components**. Styled with Tailwind out of the box—no CSS import needed. Features smooth scroll-snap physics, 12-hour AM/PM support, touch/mouse drag, RTL support, and full TypeScript types.
 
 ![npm](https://img.shields.io/npm/v/@poursha98/react-ios-time-picker)
 ![bundle size](https://img.shields.io/bundlephobia/minzip/@poursha98/react-ios-time-picker)
@@ -15,15 +15,20 @@ A beautiful, accessible iOS-style time picker for React with **shadcn-style comp
 - 🖱️ **Multi-input support** - Touch, mouse drag, and keyboard
 - ♿ **Accessible** - ARIA listbox pattern with full keyboard support
 - 🌐 **RTL & Persian numerals** - Built-in support for Persian/Arabic
-- 🎨 **Fully customizable** - CSS classes, data attributes, or inline styles
-- 📦 **Lightweight** - Zero dependencies, ~5KB gzipped
+- 🎨 **Tailwind-first** - Styled with Tailwind CSS, no CSS import needed
+- 🎨 **Fully customizable** - Override styles easily via `className` prop
+- 📦 **Lightweight** - ~12KB gzipped with dependencies
 - 🔧 **TypeScript** - Complete type definitions included
+
+> **Note**: Requires Tailwind CSS v3.0+ in your project
 
 ## 📦 Installation
 
 ```bash
 npm install @poursha98/react-ios-time-picker
 ```
+
+**Requirements**: Tailwind CSS v3.0+ must be installed.
 
 ## 🚀 Quick Start
 
@@ -34,7 +39,7 @@ npm install @poursha98/react-ios-time-picker
 ```tsx
 import { useState } from "react";
 import { TimePicker } from "@poursha98/react-ios-time-picker";
-import "@poursha98/react-ios-time-picker/styles.css";
+// No CSS import needed! ✨
 
 function App() {
   const [time, setTime] = useState("09:30");
@@ -56,7 +61,6 @@ function App() {
 ```tsx
 import { useState } from "react";
 import { TimePicker } from "@poursha98/react-ios-time-picker";
-import "@poursha98/react-ios-time-picker/styles.css";
 
 function App() {
   const [time, setTime] = useState("02:30 PM");
@@ -73,7 +77,35 @@ Enable infinite looping for wheels (except AM/PM):
 
 ```tsx
 <TimePicker value={time} onChange={setTime} loop />
-````
+```
+
+### Customizing Styles
+
+Easily override default styles with your own Tailwind classes:
+
+```tsx
+<TimePicker
+  value={time}
+  onChange={setTime}
+  className="bg-slate-900 p-8 rounded-3xl shadow-2xl" // Override container
+/>
+```
+
+Or use compound components for granular control:
+
+```tsx
+<TimePickerRoot value={time} onChange={setTime} className="bg-linear-to-br from-purple-500 to-pink-500 p-8">
+  <TimePickerTitle className="text-white text-2xl">Pick a Time</TimePickerTitle>
+  <TimePickerWheels>
+    <TimePickerWheel type="hour" className="bg-white/20 backdrop-blur" />
+    <TimePickerSeparator className="text-white">:</TimePickerSeparator>
+    <TimePickerWheel type="minute" className="bg-white/20 backdrop-blur" />
+  </TimePickerWheels>
+  <TimePickerButton className="bg-white text-purple-600 hover:bg-gray-100">
+    Confirm
+  </TimePickerButton>
+</TimePickerRoot>
+```
 
 ### Compound Components (Full Control)
 
@@ -91,7 +123,6 @@ import {
   TimePickerSeparator,
   TimePickerButton,
 } from "@poursha98/react-ios-time-picker";
-import "@poursha98/react-ios-time-picker/styles.css";
 
 function CustomTimePicker() {
   const [time, setTime] = useState("09:30");
@@ -487,3 +518,4 @@ function MinimalPicker() {
 ## 📄 License
 
 MIT © Poursha98
+````

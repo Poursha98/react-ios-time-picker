@@ -378,7 +378,11 @@ export const Wheel = forwardRef<HTMLDivElement, WheelProps>(
     return (
       <div
         ref={ref}
-        className={cn("wheel", classNames.root)}
+        className={cn(
+          "relative cursor-grab active:cursor-grabbing rounded-lg bg-white",
+          "data-disabled:cursor-not-allowed data-disabled:opacity-50",
+          classNames.root
+        )}
         style={{
           position: "relative",
           height: containerHeight,
@@ -403,7 +407,10 @@ export const Wheel = forwardRef<HTMLDivElement, WheelProps>(
         {...dataAttributes}
       >
         <div
-          className={cn("wheel-overlay-top", classNames.overlayTop)}
+          className={cn(
+            "bg-gradient-to-b from-white via-white/80 to-transparent",
+            classNames.overlayTop
+          )}
           style={{
             position: "absolute",
             top: 0,
@@ -419,7 +426,10 @@ export const Wheel = forwardRef<HTMLDivElement, WheelProps>(
         />
 
         <div
-          className={cn("wheel-overlay-bottom", classNames.overlayBottom)}
+          className={cn(
+            "bg-gradient-to-t from-white via-white/80 to-transparent",
+            classNames.overlayBottom
+          )}
           style={{
             position: "absolute",
             bottom: 0,
@@ -435,7 +445,7 @@ export const Wheel = forwardRef<HTMLDivElement, WheelProps>(
         />
 
         <div
-          className={cn("wheel-indicator", classNames.indicator)}
+          className={cn(classNames.indicator)}
           style={{
             position: "absolute",
             top: "50%",
@@ -454,7 +464,7 @@ export const Wheel = forwardRef<HTMLDivElement, WheelProps>(
         <div
           ref={viewportRef}
           onScroll={handleScroll}
-          className={cn("wheel-viewport", classNames.viewport)}
+          className={cn(classNames.viewport)}
           style={{
             height: "100%",
             overflowY: disabled ? "hidden" : "auto",
@@ -485,7 +495,10 @@ export const Wheel = forwardRef<HTMLDivElement, WheelProps>(
                 disabled={disabled}
                 onClick={() => handleItemClick(index)}
                 className={cn(
-                  "wheel-item",
+                  "text-xl transition-colors duration-150",
+                  isSelected
+                    ? "text-blue-500 font-bold"
+                    : "text-gray-400 font-medium",
                   classNames.item,
                   isSelected && classNames.selectedItem
                 )}

@@ -27,7 +27,11 @@ export const TimePickerSeparator = forwardRef<
       data-time-picker-separator=""
       aria-hidden="true"
       style={style}
-      className={cn("time-picker-separator", className)}
+      className={cn(
+        "flex items-center justify-center text-2xl font-bold text-blue-500 px-2",
+        "h-[calc(var(--time-picker-visible-count,5)*var(--time-picker-item-height,48px))]",
+        className
+      )}
       {...props}
     >
       {children ?? ":"}

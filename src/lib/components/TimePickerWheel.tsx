@@ -86,7 +86,10 @@ export const TimePickerWheel = forwardRef<HTMLDivElement, TimePickerWheelProps>(
       <div
         data-time-picker-column=""
         data-type={type}
-        className={cn("time-picker-column", className)}
+        className={cn(
+          "flex flex-col items-center flex-1 min-w-[100px] max-w-[140px]",
+          className
+        )}
       >
         <Wheel
           ref={ref}

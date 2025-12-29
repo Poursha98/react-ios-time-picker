@@ -35,7 +35,7 @@ export const TimePickerLabel = forwardRef<
       ref={ref}
       data-time-picker-label=""
       data-type={type}
-      className={cn("time-picker-label", className)}
+      className={cn("text-sm font-medium text-gray-500 mb-2", className)}
       style={style}
       {...props}
     >

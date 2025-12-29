@@ -93,7 +93,10 @@ export const TimePicker = forwardRef<HTMLDivElement, TimePickerProps>(
           style={styles.wheelsContainer}
         >
           <div
-            className={cn("time-picker-column", classNames.wheelColumn)}
+            className={cn(
+              "flex flex-col items-center flex-1 min-w-[100px] max-w-[140px]",
+              classNames.wheelColumn
+            )}
             style={styles.wheelColumn}
           >
             {showLabels && (
@@ -116,7 +119,10 @@ export const TimePicker = forwardRef<HTMLDivElement, TimePickerProps>(
           />
 
           <div
-            className={cn("time-picker-column", classNames.wheelColumn)}
+            className={cn(
+              "flex flex-col items-center flex-1 min-w-[100px] max-w-[140px]",
+              classNames.wheelColumn
+            )}
             style={styles.wheelColumn}
           >
             {showLabels && (
@@ -135,7 +141,10 @@ export const TimePicker = forwardRef<HTMLDivElement, TimePickerProps>(
 
           {is12Hour && (
             <div
-              className={cn("time-picker-column", classNames.wheelColumn)}
+              className={cn(
+                "flex flex-col items-center flex-1 min-w-[100px] max-w-[140px]",
+                classNames.wheelColumn
+              )}
               style={styles.wheelColumn}
             >
               {showLabels && (

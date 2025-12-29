@@ -191,7 +191,11 @@ export const TimePickerRoot = forwardRef<HTMLDivElement, TimePickerRootProps>(
           data-disabled={disabled || undefined}
           dir={rtl ? "rtl" : "ltr"}
           aria-label={ariaLabel}
-          className={cn("time-picker", className)}
+          className={cn(
+            "flex flex-col bg-white p-6 rounded-2xl",
+            "data-disabled:opacity-50 data-disabled:pointer-events-none",
+            className
+          )}
           style={
             {
               "--time-picker-item-height": `${itemHeight}px`,
