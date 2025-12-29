@@ -34,6 +34,7 @@ export interface TimePickerContextValue {
 
   itemHeight: number;
   visibleCount: number;
+  loop: boolean;
 }
 
 export const TimePickerContext = createContext<TimePickerContextValue | null>(

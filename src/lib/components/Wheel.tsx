@@ -59,6 +59,8 @@ export interface WheelProps<T = unknown> {
   getItemLabel?: (item: T, index: number) => string;
   /** Unique ID for the wheel (auto-generated if not provided) */
   id?: string;
+  /** Enable infinite looping */
+  loop?: boolean;
   /** Additional data attributes */
   [key: `data-${string}`]: string | undefined;
 }
@@ -79,6 +81,7 @@ export const Wheel = forwardRef<HTMLDivElement, WheelProps>(
       "aria-label": ariaLabel,
       getItemLabel,
       id: providedId,
+      loop = false,
       ...props
     }: WheelProps<T>,
     ref: React.ForwardedRef<HTMLDivElement>
@@ -97,13 +100,19 @@ export const Wheel = forwardRef<HTMLDivElement, WheelProps>(
 
     const [internalValue, setInternalValue] = useState(value);
 
+    // If looping, we render 3 sets of items.
+    const displayItems = loop ? [...items, ...items, ...items] : items;
+    const itemsLength = items.length;
+
     const containerHeight = visibleCount * itemHeight;
     const paddingHeight = Math.floor(visibleCount / 2) * itemHeight;
 
     const scrollToIndex = useCallback(
       (index: number, smooth: boolean = true) => {
         if (viewportRef.current) {
-          const targetScroll = index * itemHeight;
+          const targetIndex = loop ? index + itemsLength : index;
+          const targetScroll = targetIndex * itemHeight;
+
           if (smooth) {
             viewportRef.current.scrollTo({
               top: targetScroll,
@@ -114,7 +123,7 @@ export const Wheel = forwardRef<HTMLDivElement, WheelProps>(
           }
         }
       },
-      [itemHeight]
+      [itemHeight, loop, itemsLength]
     );
 
     useEffect(() => {
@@ -125,32 +134,71 @@ export const Wheel = forwardRef<HTMLDivElement, WheelProps>(
     }, [value, internalValue, scrollToIndex]);
 
     useEffect(() => {
+      // Initial scroll
       scrollToIndex(internalValue, false);
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    const handleLoopScroll = useCallback(() => {
+      if (!loop || !viewportRef.current) return;
+
+      const scrollTop = viewportRef.current.scrollTop;
+      const totalHeight = itemsLength * itemHeight;
+      const setHeight = totalHeight;
+
+      if (scrollTop < setHeight / 2) {
+        viewportRef.current.scrollTop = scrollTop + setHeight;
+      } else if (scrollTop > setHeight * 2.5) {
+        viewportRef.current.scrollTop = scrollTop - setHeight;
+      }
+    }, [loop, itemsLength, itemHeight]);
+
     const finalizeSelection = useCallback(() => {
       if (!viewportRef.current) return;
 
-      const scrollTop = viewportRef.current.scrollTop;
-      const newIndex = Math.round(scrollTop / itemHeight);
-      const clampedIndex = Math.max(0, Math.min(items.length - 1, newIndex));
+      let scrollTop = viewportRef.current.scrollTop;
+
+      if (loop) {
+        const setHeight = itemsLength * itemHeight;
+        const offsetInSet = scrollTop % setHeight;
+        const normalizedScrollTop = setHeight + offsetInSet;
+
+        if (Math.abs(scrollTop - normalizedScrollTop) > 1) {
+          viewportRef.current.scrollTop = normalizedScrollTop;
+          scrollTop = normalizedScrollTop;
+        }
+      }
+
+      const rawIndex = Math.round(scrollTop / itemHeight);
+
+      let finalIndex: number;
+      if (loop) {
+        finalIndex = rawIndex % itemsLength;
+      } else {
+        finalIndex = Math.max(0, Math.min(items.length - 1, rawIndex));
+      }
+
+      const snapTargetIndex = loop ? finalIndex + itemsLength : finalIndex;
 
       viewportRef.current.scrollTo({
-        top: clampedIndex * itemHeight,
+        top: snapTargetIndex * itemHeight,
         behavior: "smooth",
       });
 
       isUserScrolling.current = false;
       isDragging.current = false;
 
-      if (clampedIndex !== internalValue) {
-        setInternalValue(clampedIndex);
-        onChange(clampedIndex);
+      if (finalIndex !== internalValue) {
+        setInternalValue(finalIndex);
+        onChange(finalIndex);
       }
-    }, [itemHeight, items.length, internalValue, onChange]);
+    }, [itemHeight, items.length, itemsLength, internalValue, onChange, loop]);
 
     const handleScroll = useCallback(() => {
+      if (loop) {
+        handleLoopScroll();
+      }
+
       if (isDragging.current) return;
 
       isUserScrolling.current = true;
@@ -162,7 +210,7 @@ export const Wheel = forwardRef<HTMLDivElement, WheelProps>(
       scrollEndTimeout.current = setTimeout(() => {
         finalizeSelection();
       }, 100);
-    }, [finalizeSelection]);
+    }, [finalizeSelection, loop, handleLoopScroll]);
 
     const handlePointerDown = useCallback(
       (e: PointerEvent<HTMLDivElement>) => {
@@ -190,13 +238,18 @@ export const Wheel = forwardRef<HTMLDivElement, WheelProps>(
         const deltaY = dragStartY.current - e.clientY;
         const newScrollTop = dragStartScrollTop.current + deltaY;
 
-        const maxScroll = (items.length - 1) * itemHeight;
-        viewportRef.current.scrollTop = Math.max(
-          0,
-          Math.min(maxScroll, newScrollTop)
-        );
+        if (!loop) {
+          const maxScroll = (items.length - 1) * itemHeight;
+          viewportRef.current.scrollTop = Math.max(
+            0,
+            Math.min(maxScroll, newScrollTop)
+          );
+        } else {
+          viewportRef.current.scrollTop = newScrollTop;
+          handleLoopScroll();
+        }
       },
-      [items.length, itemHeight]
+      [items.length, itemHeight, loop, handleLoopScroll]
     );
 
     const handlePointerUp = useCallback(
@@ -215,11 +268,14 @@ export const Wheel = forwardRef<HTMLDivElement, WheelProps>(
     const handleItemClick = useCallback(
       (index: number) => {
         if (disabled || isDragging.current) return;
-        setInternalValue(index);
-        onChange(index);
-        scrollToIndex(index, true);
+
+        const realIndex = loop ? index % itemsLength : index;
+
+        setInternalValue(realIndex);
+        onChange(realIndex);
+        scrollToIndex(realIndex, true);
       },
-      [disabled, scrollToIndex, onChange]
+      [disabled, scrollToIndex, onChange, loop, itemsLength]
     );
 
     const handleKeyDown = useCallback(
@@ -231,11 +287,17 @@ export const Wheel = forwardRef<HTMLDivElement, WheelProps>(
         switch (e.key) {
           case "ArrowUp":
             e.preventDefault();
-            newIndex = Math.max(0, internalValue - 1);
+            newIndex = internalValue - 1;
+            if (newIndex < 0) {
+              newIndex = loop ? itemsLength - 1 : 0;
+            }
             break;
           case "ArrowDown":
             e.preventDefault();
-            newIndex = Math.min(items.length - 1, internalValue + 1);
+            newIndex = internalValue + 1;
+            if (newIndex >= itemsLength) {
+              newIndex = loop ? 0 : itemsLength - 1;
+            }
             break;
           case "Home":
             e.preventDefault();
@@ -243,15 +305,20 @@ export const Wheel = forwardRef<HTMLDivElement, WheelProps>(
             break;
           case "End":
             e.preventDefault();
-            newIndex = items.length - 1;
+            newIndex = itemsLength - 1;
             break;
           case "PageUp":
             e.preventDefault();
-            newIndex = Math.max(0, internalValue - visibleCount);
+            // Simple approx for PageUp
+            newIndex = internalValue - visibleCount;
+            if (newIndex < 0)
+              newIndex = loop ? (newIndex + itemsLength) % itemsLength : 0;
             break;
           case "PageDown":
             e.preventDefault();
-            newIndex = Math.min(items.length - 1, internalValue + visibleCount);
+            newIndex = internalValue + visibleCount;
+            if (newIndex >= itemsLength)
+              newIndex = loop ? newIndex % itemsLength : itemsLength - 1;
             break;
           default:
             return;
@@ -267,10 +334,11 @@ export const Wheel = forwardRef<HTMLDivElement, WheelProps>(
       [
         disabled,
         internalValue,
-        items.length,
+        itemsLength,
         visibleCount,
         onChange,
         scrollToIndex,
+        loop,
       ]
     );
 
@@ -398,8 +466,9 @@ export const Wheel = forwardRef<HTMLDivElement, WheelProps>(
         >
           <div style={{ height: paddingHeight }} aria-hidden="true" />
 
-          {items.map((item, index) => {
-            const isSelected = index === internalValue;
+          {displayItems.map((item, index) => {
+            const realIndex = loop ? index % itemsLength : index;
+            const isSelected = realIndex === internalValue;
 
             return (
               <button
@@ -412,7 +481,7 @@ export const Wheel = forwardRef<HTMLDivElement, WheelProps>(
                 type="button"
                 role="option"
                 aria-selected={isSelected}
-                aria-label={getLabel(item, index)}
+                aria-label={getLabel(item, realIndex)}
                 disabled={disabled}
                 onClick={() => handleItemClick(index)}
                 className={cn(
@@ -436,10 +505,10 @@ export const Wheel = forwardRef<HTMLDivElement, WheelProps>(
                 }}
                 data-wheel-item=""
                 data-selected={isSelected || undefined}
-                data-index={index}
+                data-index={realIndex}
                 tabIndex={-1}
               >
-                {render(item, index, isSelected)}
+                {render(item, realIndex, isSelected)}
               </button>
             );
           })}

@@ -103,6 +103,7 @@ export const TimePickerWheel = forwardRef<HTMLDivElement, TimePickerWheelProps>(
           classNames={classNames}
           styles={styles}
           data-wheel-type={type}
+          loop={type === "period" ? false : ctx.loop}
           {...props}
         />
       </div>

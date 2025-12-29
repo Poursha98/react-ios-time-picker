@@ -59,6 +59,8 @@ export interface TimePickerRootProps {
   className?: string;
   /** Accessibility label */
   "aria-label"?: string;
+  /** Enable infinite looping (default: false) */
+  loop?: boolean;
 }
 
 export const TimePickerRoot = forwardRef<HTMLDivElement, TimePickerRootProps>(
@@ -79,6 +81,7 @@ export const TimePickerRoot = forwardRef<HTMLDivElement, TimePickerRootProps>(
       children,
       className,
       "aria-label": ariaLabel,
+      loop = false,
       ...props
     },
     ref
@@ -155,6 +158,7 @@ export const TimePickerRoot = forwardRef<HTMLDivElement, TimePickerRootProps>(
         locale,
         itemHeight,
         visibleCount,
+        loop,
       }),
       [
         hour,
@@ -174,6 +178,7 @@ export const TimePickerRoot = forwardRef<HTMLDivElement, TimePickerRootProps>(
         locale,
         itemHeight,
         visibleCount,
+        loop,
       ]
     );
 

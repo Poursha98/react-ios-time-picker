@@ -9,6 +9,7 @@ A beautiful, accessible iOS-style time picker for React with **shadcn-style comp
 ## ✨ Features
 
 - 🎡 **iOS-style scroll physics** - Native scroll-snap behavior
+- ♾️ **Infinite Scrolling** - Seamless looping of wheels (optional)
 - 🧩 **Compound components** - Mix and match parts like shadcn/ui
 - 🕐 **12-hour AM/PM support** - Built-in period wheel
 - 🖱️ **Multi-input support** - Touch, mouse drag, and keyboard
@@ -63,6 +64,16 @@ function App() {
   return <TimePicker value={time} onChange={setTime} is12Hour />;
 }
 ```
+
+````
+
+### Infinite Scrolling (Loop)
+
+Enable infinite looping for wheels (except AM/PM):
+
+```tsx
+<TimePicker value={time} onChange={setTime} loop />
+````
 
 ### Compound Components (Full Control)
 
@@ -177,6 +188,7 @@ function FruitPicker() {
 | `showConfirmButton` | `boolean`                | `true`               | Show confirm button                       |
 | `itemHeight`        | `number`                 | `48`                 | Height of each wheel item                 |
 | `visibleCount`      | `number`                 | `5`                  | Number of visible items                   |
+| `loop`              | `boolean`                | `false`              | Enable infinite looping                   |
 | `disabled`          | `boolean`                | `false`              | Disable the picker                        |
 | `className`         | `string`                 | -                    | Root element className                    |
 | `classNames`        | `TimePickerClassNames`   | -                    | CSS class names (legacy)                  |
@@ -195,6 +207,7 @@ The context provider that wraps all other components.
   is12Hour={false}
   numerals="auto"
   disabled={false}
+  loop={false}
   onConfirm={() => {}}
   className="my-picker"
 >
@@ -281,6 +294,7 @@ Confirm button that triggers `onConfirm`.
 | `itemHeight`   | `number`                                 | `40`         | Height of each item in pixels |
 | `visibleCount` | `number`                                 | `5`          | Number of visible items       |
 | `width`        | `string \| number`                       | `"100%"`     | Width of the wheel            |
+| `loop`         | `boolean`                                | `false`      | Enable infinite looping       |
 | `renderItem`   | `(item, index, isSelected) => ReactNode` | -            | Custom item renderer          |
 | `disabled`     | `boolean`                                | `false`      | Disable the wheel             |
 | `classNames`   | `WheelClassNames`                        | -            | CSS class names               |

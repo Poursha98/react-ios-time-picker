@@ -71,6 +71,7 @@ export const TimePicker = forwardRef<HTMLDivElement, TimePickerProps>(
       styles = {},
       className,
       is12Hour,
+      loop,
       ...props
     },
     ref
@@ -80,6 +81,7 @@ export const TimePicker = forwardRef<HTMLDivElement, TimePickerProps>(
         ref={ref}
         className={cn(classNames.root, className)}
         is12Hour={is12Hour}
+        loop={loop}
         {...props}
       >
         {showTitle && (
