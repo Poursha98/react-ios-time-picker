@@ -28,7 +28,6 @@ export const TimePickerWheels = forwardRef<
     const itemHeight = context?.itemHeight ?? 48;
     const visibleCount = context?.visibleCount ?? 5;
 
-    // Calculate the position for the unified indicator (from bottom of wheel)
     const containerHeight = visibleCount * itemHeight;
     const indicatorBottom = (containerHeight - itemHeight) / 2;
 
@@ -40,7 +39,6 @@ export const TimePickerWheels = forwardRef<
           "flex items-end justify-center gap-1 relative",
           className
         )}
-        // Always LTR for wheels to keep hour:minute order consistent
         style={{
           direction: "ltr",
           position: "relative",
@@ -48,7 +46,6 @@ export const TimePickerWheels = forwardRef<
         }}
         {...props}
       >
-        {/* Unified iOS-style selection indicator */}
         {!hideIndicator && (
           <div
             className="border-t border-b border-gray-300/30 bg-transparent"

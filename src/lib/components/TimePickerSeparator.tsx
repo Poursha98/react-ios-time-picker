@@ -17,7 +17,7 @@ export const TimePickerSeparator = forwardRef<
   HTMLSpanElement,
   TimePickerSeparatorProps
 >(({ children, className, style, asChild, ...props }, ref) => {
-  useTimePickerContext(); // Ensure we're inside a Root
+  useTimePickerContext();
 
   const Comp = asChild ? Slot : "span";
 

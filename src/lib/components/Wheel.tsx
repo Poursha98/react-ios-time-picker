@@ -100,7 +100,6 @@ export const Wheel = forwardRef<HTMLDivElement, WheelProps>(
 
     const [internalValue, setInternalValue] = useState(value);
 
-    // If looping, we render 3 sets of items.
     const displayItems = loop ? [...items, ...items, ...items] : items;
     const itemsLength = items.length;
 
@@ -134,10 +133,8 @@ export const Wheel = forwardRef<HTMLDivElement, WheelProps>(
     }, [value, internalValue, scrollToIndex]);
 
     useEffect(() => {
-      // Initial scroll
       scrollToIndex(internalValue, false);
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [internalValue, scrollToIndex]);
 
     const handleLoopScroll = useCallback(() => {
       if (!loop || !viewportRef.current) return;
@@ -309,7 +306,6 @@ export const Wheel = forwardRef<HTMLDivElement, WheelProps>(
             break;
           case "PageUp":
             e.preventDefault();
-            // Simple approx for PageUp
             newIndex = internalValue - visibleCount;
             if (newIndex < 0)
               newIndex = loop ? (newIndex + itemsLength) % itemsLength : 0;

@@ -1,7 +1,3 @@
-/**
- * Time formatting utilities
- */
-
 export type Period = "AM" | "PM";
 
 /**
