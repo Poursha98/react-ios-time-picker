@@ -1,0 +1,281 @@
+/**
+ * React iOS Time Picker - Default Styles
+ * 
+ * Import this file for sensible defaults:
+ *   import "@poursha98/react-ios-time-picker/styles.css";
+ * 
+ * Customize with CSS variables:
+ *   --time-picker-bg
+ *   --time-picker-text
+ *   --time-picker-text-secondary
+ *   --time-picker-primary
+ */
+
+/* =============================================================================
+   CSS Variables (Theming)
+   ============================================================================= */
+
+:root {
+  --time-picker-bg: #ffffff;
+  --time-picker-text: #1f2937;
+  --time-picker-text-secondary: #9ca3af;
+  --time-picker-primary: #3b82f6;
+  --time-picker-primary-light: rgba(59, 130, 246, 0.1);
+}
+
+/* Dark mode preset class */
+.time-picker-dark,
+[data-time-picker].dark {
+  --time-picker-bg: #1f2937;
+  --time-picker-text: #f3f4f6;
+  --time-picker-text-secondary: #9ca3af;
+  --time-picker-primary: #60a5fa;
+  --time-picker-primary-light: rgba(96, 165, 250, 0.1);
+}
+
+/* =============================================================================
+   TimePicker Root
+   ============================================================================= */
+
+[data-time-picker] {
+  display: flex;
+  flex-direction: column;
+  background: var(--time-picker-bg);
+  padding: 1.5rem;
+  border-radius: 1rem;
+}
+
+/* Legacy class support */
+.time-picker {
+  display: flex;
+  flex-direction: column;
+  background: var(--time-picker-bg);
+  padding: 1.5rem;
+  border-radius: 1rem;
+}
+
+/* =============================================================================
+   Title
+   ============================================================================= */
+
+[data-time-picker-title],
+.time-picker-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--time-picker-text);
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+/* =============================================================================
+   Wheels Container
+   ============================================================================= */
+
+[data-time-picker-wheels],
+.time-picker-wheels {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* =============================================================================
+   Wheel Column
+   ============================================================================= */
+
+[data-time-picker-column],
+.time-picker-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  max-width: 140px;
+}
+
+/* =============================================================================
+   Label
+   ============================================================================= */
+
+[data-time-picker-label],
+.time-picker-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--time-picker-text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+/* =============================================================================
+   Separator
+   ============================================================================= */
+
+[data-time-picker-separator],
+.time-picker-separator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--time-picker-primary);
+  padding: 0 0.5rem;
+  padding-top: 1.75rem; /* Offset for label */
+}
+
+/* =============================================================================
+   Confirm Button
+   ============================================================================= */
+
+[data-time-picker-button],
+.time-picker-button {
+  width: 100%;
+  padding: 0.875rem 1.5rem;
+  margin-top: 1.5rem;
+  background: var(--time-picker-primary);
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 0.875rem;
+  cursor: pointer;
+  transition: transform 0.1s ease, filter 0.2s ease;
+}
+
+[data-time-picker-button]:hover:not(:disabled),
+.time-picker-button:hover:not(:disabled) {
+  filter: brightness(1.1);
+}
+
+[data-time-picker-button]:active:not(:disabled),
+.time-picker-button:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+[data-time-picker-button]:disabled,
+.time-picker-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* =============================================================================
+   Wheel
+   ============================================================================= */
+
+[data-wheel],
+.wheel {
+  cursor: grab;
+  background: var(--time-picker-bg);
+  border-radius: 0.5rem;
+}
+
+[data-wheel]:active,
+.wheel:active {
+  cursor: grabbing;
+}
+
+[data-wheel][data-disabled],
+.wheel[data-disabled] {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* =============================================================================
+   Wheel Viewport (scrollbar hidden)
+   ============================================================================= */
+
+[data-wheel-viewport],
+.wheel-viewport {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+[data-wheel-viewport]::-webkit-scrollbar,
+.wheel-viewport::-webkit-scrollbar {
+  display: none;
+}
+
+/* =============================================================================
+   Wheel Items
+   ============================================================================= */
+
+[data-wheel-item],
+.wheel-item {
+  cursor: pointer;
+  background: transparent;
+  font-size: 1.25rem;
+  color: var(--time-picker-text-secondary);
+  transition: color 0.15s ease;
+}
+
+[data-wheel-item][data-selected],
+.wheel-item-selected {
+  color: var(--time-picker-primary);
+  font-weight: 700;
+}
+
+/* =============================================================================
+   Wheel Overlays (gradient fade)
+   ============================================================================= */
+
+[data-wheel-overlay="top"],
+.wheel-overlay-top {
+  background: linear-gradient(
+    to bottom,
+    var(--time-picker-bg) 0%,
+    color-mix(in srgb, var(--time-picker-bg) 80%, transparent) 50%,
+    transparent 100%
+  );
+}
+
+[data-wheel-overlay="bottom"],
+.wheel-overlay-bottom {
+  background: linear-gradient(
+    to top,
+    var(--time-picker-bg) 0%,
+    color-mix(in srgb, var(--time-picker-bg) 80%, transparent) 50%,
+    transparent 100%
+  );
+}
+
+/* Fallback for browsers without color-mix */
+@supports not (background: color-mix(in srgb, white 50%, transparent)) {
+  [data-wheel-overlay="top"],
+  .wheel-overlay-top {
+    background: linear-gradient(
+      to bottom,
+      var(--time-picker-bg) 0%,
+      transparent 100%
+    );
+  }
+
+  [data-wheel-overlay="bottom"],
+  .wheel-overlay-bottom {
+    background: linear-gradient(
+      to top,
+      var(--time-picker-bg) 0%,
+      transparent 100%
+    );
+  }
+}
+
+/* =============================================================================
+   Wheel Indicator
+   ============================================================================= */
+
+[data-wheel-indicator],
+.wheel-indicator {
+  border-top: 2px solid var(--time-picker-primary);
+  border-bottom: 2px solid var(--time-picker-primary);
+  background: var(--time-picker-primary-light);
+  border-radius: 0.25rem;
+}
+
+/* =============================================================================
+   RTL Support
+   ============================================================================= */
+
+[data-time-picker][data-rtl] {
+  direction: rtl;
+}
+
+/* Wheels always LTR for consistent hour:minute display */
+[data-time-picker][data-rtl] [data-time-picker-wheels] {
+  direction: ltr;
+}

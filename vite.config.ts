@@ -1,5 +1,6 @@
 import { defineConfig } from "vite";
 import { resolve } from "path";
+import { copyFileSync, mkdirSync, existsSync } from "fs";
 import dts from "vite-plugin-dts";
 
 export default defineConfig({
@@ -9,6 +10,18 @@ export default defineConfig({
       outDir: "dist",
       rollupTypes: true,
     }),
+    {
+      name: "copy-css",
+      closeBundle() {
+        // Ensure dist directory exists
+        if (!existsSync("dist")) {
+          mkdirSync("dist", { recursive: true });
+        }
+        // Copy CSS file to dist
+        copyFileSync("src/lib/styles.css", "dist/styles.css");
+        console.log("✓ Copied styles.css to dist/");
+      },
+    },
   ],
   build: {
     lib: {
@@ -27,7 +40,7 @@ export default defineConfig({
         },
       },
     },
-    sourcemap: false,
+    sourcemap: true,
     minify: "esbuild",
   },
 });
