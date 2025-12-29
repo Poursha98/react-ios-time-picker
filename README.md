@@ -28,6 +28,8 @@ npm install @poursha98/react-ios-time-picker
 
 ### Simple Usage (All-in-One)
 
+![Simple Usage](./assets/screenshot-simple.png)
+
 ```tsx
 import { useState } from "react";
 import { TimePicker } from "@poursha98/react-ios-time-picker";
@@ -48,6 +50,8 @@ function App() {
 
 ### 12-Hour Format with AM/PM
 
+![12-Hour Usage](./assets/screenshot-12h.png)
+
 ```tsx
 import { useState } from "react";
 import { TimePicker } from "@poursha98/react-ios-time-picker";
@@ -61,6 +65,8 @@ function App() {
 ```
 
 ### Compound Components (Full Control)
+
+![Compound Components](./assets/screenshot-compound.png)
 
 For maximum flexibility, use individual compound components:
 
