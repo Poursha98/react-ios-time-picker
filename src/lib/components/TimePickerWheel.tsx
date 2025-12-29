@@ -59,7 +59,7 @@ export const TimePickerWheel = forwardRef<HTMLDivElement, TimePickerWheelProps>(
     // Render item with Persian support (except for AM/PM)
     const renderItem = (
       item: number | string,
-      _index: number,
+      _idx1: number,
       isSelected: boolean
     ): ReactNode => {
       const display =
@@ -78,8 +78,7 @@ export const TimePickerWheel = forwardRef<HTMLDivElement, TimePickerWheelProps>(
       );
     };
 
-    // Get item label for screen readers
-    const getItemLabel = (item: number | string, _index: number): string => {
+    const getItemLabel = (item: number | string, _idx2: number): string => {
       if (typeof item === "number") {
         return `${item} ${ariaLabel}`;
       }
