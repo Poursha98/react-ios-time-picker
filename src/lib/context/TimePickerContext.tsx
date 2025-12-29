@@ -12,17 +12,14 @@ export interface TimePickerLocale {
 export type NumeralFormat = "en" | "fa" | "auto";
 
 export interface TimePickerContextValue {
-  // Current values
   hour: number;
   minute: number;
   period: Period | null;
 
-  // Setters
   setHour: (hour: number) => void;
   setMinute: (minute: number) => void;
   setPeriod: (period: Period) => void;
 
-  // Configuration
   hours: number[];
   minutes: number[];
   is12Hour: boolean;
@@ -31,13 +28,10 @@ export interface TimePickerContextValue {
   usePersian: boolean;
   rtl: boolean;
 
-  // Callbacks
   onConfirm?: () => void;
 
-  // Locale strings
   locale: TimePickerLocale;
 
-  // Item dimensions
   itemHeight: number;
   visibleCount: number;
 }

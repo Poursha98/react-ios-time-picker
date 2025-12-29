@@ -20,7 +20,6 @@ export function parseTime(
   const hasPeriod = upperValue.includes("AM") || upperValue.includes("PM");
 
   if (hasPeriod || is12Hour) {
-    // 12-hour format: "02:30 PM" or "2:30PM"
     const period: Period = upperValue.includes("PM") ? "PM" : "AM";
     const timePart = upperValue.replace(/\s*(AM|PM)\s*/i, "").trim();
     const [h, m] = timePart.split(":").map(Number);
@@ -32,7 +31,6 @@ export function parseTime(
     ];
   }
 
-  // 24-hour format: "14:30"
   const [h, m] = value.split(":").map(Number);
   return [isNaN(h) ? 0 : h, isNaN(m) ? 0 : m, null];
 }

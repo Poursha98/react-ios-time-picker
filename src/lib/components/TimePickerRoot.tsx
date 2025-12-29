@@ -83,23 +83,19 @@ export const TimePickerRoot = forwardRef<HTMLDivElement, TimePickerRootProps>(
     },
     ref
   ) => {
-    // Calculate Persian and RTL
     const usePersian = usePersianNumerals(numerals);
     const rtl = isRTL(numerals);
 
-    // Parse current value
     const [hour, minute, period] = useMemo(
       () => parseTime(value, is12Hour),
       [value, is12Hour]
     );
 
-    // Generate hours array
     const hours = useMemo(() => {
       if (customHours) return customHours;
       return is12Hour ? HOURS_12 : HOURS_24;
     }, [customHours, is12Hour]);
 
-    // Generate minutes array
     const minutes = useMemo(() => {
       if (customMinutes) return customMinutes;
       if (minuteStep) {
@@ -111,7 +107,6 @@ export const TimePickerRoot = forwardRef<HTMLDivElement, TimePickerRootProps>(
       return MINUTES;
     }, [customMinutes, minuteStep]);
 
-    // Build locale
     const locale = useMemo<TimePickerLocale>(
       () => ({
         ...(usePersian ? LOCALE_STRINGS.fa : LOCALE_STRINGS.en),
@@ -120,7 +115,6 @@ export const TimePickerRoot = forwardRef<HTMLDivElement, TimePickerRootProps>(
       [usePersian, localeStrings]
     );
 
-    // Create stable setters with useCallback
     const setHour = useCallback(
       (h: number) => {
         onChange(formatTime(h, minute, is12Hour ? period : null));
@@ -142,7 +136,6 @@ export const TimePickerRoot = forwardRef<HTMLDivElement, TimePickerRootProps>(
       [onChange, hour, minute]
     );
 
-    // Build context value
     const contextValue = useMemo(
       () => ({
         hour,
@@ -194,6 +187,12 @@ export const TimePickerRoot = forwardRef<HTMLDivElement, TimePickerRootProps>(
           dir={rtl ? "rtl" : "ltr"}
           aria-label={ariaLabel}
           className={cn("time-picker", className)}
+          style={
+            {
+              "--time-picker-item-height": `${itemHeight}px`,
+              "--time-picker-visible-count": visibleCount,
+            } as React.CSSProperties
+          }
           {...props}
         >
           {children}

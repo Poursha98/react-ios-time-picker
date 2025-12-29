@@ -282,7 +282,6 @@ export const Wheel = forwardRef<HTMLDivElement, WheelProps>(
       };
     }, []);
 
-    // Clear refs when items change
     useEffect(() => {
       itemRefs.current.clear();
     }, [items.length]);
@@ -299,7 +298,6 @@ export const Wheel = forwardRef<HTMLDivElement, WheelProps>(
 
     const render = renderItem || defaultRenderItem;
 
-    // Extract data attributes from props
     const dataAttributes: Record<string, string | undefined> = {};
     for (const key of Object.keys(props)) {
       if (key.startsWith("data-")) {

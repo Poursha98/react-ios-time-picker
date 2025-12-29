@@ -1,4 +1,3 @@
-// Compound Components
 export { TimePickerRoot } from "./TimePickerRoot";
 export type { TimePickerRootProps } from "./TimePickerRoot";
 
@@ -20,7 +19,6 @@ export type { TimePickerLabelProps } from "./TimePickerLabel";
 export { TimePickerButton } from "./TimePickerButton";
 export type { TimePickerButtonProps } from "./TimePickerButton";
 
-// All-in-One Component
 export { TimePicker } from "./TimePicker";
 export type {
   TimePickerProps,
@@ -28,6 +26,5 @@ export type {
   TimePickerStyles,
 } from "./TimePicker";
 
-// Low-Level Wheel
 export { Wheel } from "./Wheel";
 export type { WheelProps, WheelClassNames, WheelStyles } from "./Wheel";

@@ -1,8 +1,3 @@
-// =============================================================================
-// React iOS Time Picker - Main Exports
-// =============================================================================
-
-// Compound Components (for full control)
 export {
   TimePickerRoot,
   TimePickerTitle,
@@ -13,18 +8,13 @@ export {
   TimePickerButton,
 } from "./components";
 
-// All-in-One Component (simple usage)
 export { TimePicker } from "./components";
 
-// Low-Level Wheel (for custom pickers)
 export { Wheel } from "./components";
 
-// Context Hook (for advanced use cases)
 export { useTimePickerContext } from "./context";
 
-// Type Exports
 export type {
-  // Compound component props
   TimePickerRootProps,
   TimePickerTitleProps,
   TimePickerWheelsProps,
@@ -33,11 +23,9 @@ export type {
   TimePickerLabelProps,
   TimePickerButtonProps,
   WheelType,
-  // All-in-one props
   TimePickerProps,
   TimePickerClassNames,
   TimePickerStyles,
-  // Wheel props
   WheelProps,
   WheelClassNames,
   WheelStyles,
@@ -49,7 +37,6 @@ export type {
   NumeralFormat,
 } from "./context";
 
-// Time Constants
 export {
   HOURS_24,
   HOURS_12,
@@ -58,7 +45,6 @@ export {
   MINUTES_15,
 } from "./timeConstants";
 
-// Utility Exports (for advanced use)
 export { cn } from "./utils";
 export {
   parseTime,
@@ -72,7 +58,5 @@ export {
 } from "./utils";
 export type { Period } from "./utils/formatters";
 
-// =============================================================================
 // Default styles - import separately:
 //   import "@poursha98/react-ios-time-picker/styles.css";
-// =============================================================================

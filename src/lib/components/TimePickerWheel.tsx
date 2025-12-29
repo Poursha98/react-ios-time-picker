@@ -21,7 +21,6 @@ export const TimePickerWheel = forwardRef<HTMLDivElement, TimePickerWheelProps>(
     const ctx = useTimePickerContext();
     const wheelId = useId();
 
-    // Determine items and value based on type
     const items: (number | string)[] =
       type === "hour"
         ? ctx.hours
@@ -48,7 +47,6 @@ export const TimePickerWheel = forwardRef<HTMLDivElement, TimePickerWheelProps>(
       }
     };
 
-    // Get label for accessibility
     const ariaLabel =
       type === "hour"
         ? ctx.locale.hourLabel
@@ -56,7 +54,6 @@ export const TimePickerWheel = forwardRef<HTMLDivElement, TimePickerWheelProps>(
         ? ctx.locale.minuteLabel
         : ctx.locale.periodLabel;
 
-    // Render item with Persian support (except for AM/PM)
     const renderItem = (
       item: number | string,
       _idx1: number,
